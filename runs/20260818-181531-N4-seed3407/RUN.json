@@ -1,0 +1,31 @@
+{
+  "harness_version": 1,
+  "trainer_path": "peft-fallback",
+  "config_hash": "02f7431365be9019",
+  "dataset_path": "C:\\dev\\slm-week7\\src\\train\\smoke_data.jsonl",
+  "dataset_sha256": "e51058c9773d5d91",
+  "n_examples": 4,
+  "seed": 3407,
+  "model_id": "Qwen/Qwen3-0.6B",
+  "wall_time_seconds": 36.42,
+  "finished_utc": "2026-08-18T18:16:08.795632+00:00",
+  "library_versions": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "torch": "2.13.0+cpu",
+    "transformers": "4.57.6",
+    "peft": "0.17.1",
+    "trl": "not-installed",
+    "bitsandbytes": "not-installed",
+    "unsloth": "not-installed",
+    "datasets": "5.0.1",
+    "accelerate": "1.14.0",
+    "cuda_available": "False"
+  },
+  "argv": [
+    "src\\train\\train.py",
+    "--config",
+    "src\\train\\config.smoke.yaml"
+  ],
+  "final_loss": 2.0008613049983976
+}

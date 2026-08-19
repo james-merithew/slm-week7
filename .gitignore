@@ -1,0 +1,9 @@
+﻿__pycache__/
+.pytest_cache/
+*.pyc
+hf_out/
+modal_runs/
+# Regenerable / oversized model artifacts: merged exports rebuild via export.py;
+# the trained adapter ships via HF Hub (verification item V1), not git.
+runs/*/export/merged/
+runs/20260818-220624-N123-seed3407/adapter/adapter_model.safetensors

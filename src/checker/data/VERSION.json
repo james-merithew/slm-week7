@@ -1,0 +1,18 @@
+{
+  "spec": "Benefits Notices, Explained \u2014 checker spec v3",
+  "checker_version": "1.1",
+  "ngsl_lemma_count": 2801,
+  "allowed_form_count": 11591,
+  "ngsl_lemmas_sha256": "a8d5ec566f8553699861c1b92fb43655b4fd95acc4da6b93938c4ccaac1143c5",
+  "allowed_forms_sha256": "e34630435df3563da65438959bfa9164e0831b6b7d13f3645aa1d37e514ab329",
+  "lemminflect_version": "0.2.3",
+  "mandated_extra_words": [
+    "deadline",
+    "deadlines"
+  ],
+  "supplemental_basics_count": 81,
+  "derivational_affix_rules": "-ly (ADJ headwords); -al/-ial/-ment/-ation/-tion (VERB headwords)",
+  "derived_headword_count": 412,
+  "banner_checker_clean": true,
+  "banner_uncovered_words": []
+}

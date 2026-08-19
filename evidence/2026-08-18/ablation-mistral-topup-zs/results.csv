@@ -1,0 +1,2 @@
+model,strategy,n,n_pass,spec_adherence,n_adv,n_adv_pass,robustness,mean_violations_per_100_words,softened_modal_count,anchor_break_count,top_violations,n_judged,n_judge_pass,judge_pass_rate
+mistral:mistral-large-latest,zero_shot,3,0,0.0,2,0,0.0,1.15,8,6,paraphrased_anchor:4; missing_banner:2; missing_operative_deadline:2,0,0,

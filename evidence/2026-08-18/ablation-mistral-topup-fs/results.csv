@@ -1,0 +1,2 @@
+model,strategy,n,n_pass,spec_adherence,n_adv,n_adv_pass,robustness,mean_violations_per_100_words,softened_modal_count,anchor_break_count,top_violations,n_judged,n_judge_pass,judge_pass_rate
+mistral:mistral-large-latest,few_shot,3,2,0.6666666666666666,0,0,,0.61,5,0,unearned_word:9; fabricated_quote:1,0,0,

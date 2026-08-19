@@ -1,0 +1,39 @@
+harness_version: 1
+model:
+  id: Qwen/Qwen3-0.6B
+  fallback_id: HuggingFaceTB/SmolLM2-135M-Instruct
+  max_seq_len: 4096
+  load_in_4bit: true
+lora:
+  r: 8
+  alpha: 16
+  dropout: 0.0
+  target_modules:
+  - q_proj
+  - k_proj
+  - v_proj
+  - o_proj
+  - gate_proj
+  - up_proj
+  - down_proj
+train:
+  seed: 3407
+  per_device_batch_size: 1
+  grad_accum_steps: 1
+  learning_rate: 0.0002
+  lr_scheduler: constant
+  warmup_ratio: 0.0
+  epochs: 1
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  optim: adamw_torch
+  logging_steps: 1
+  save_strategy: 'no'
+  packing: false
+  max_steps: 10
+data:
+  path: data/dataset/v2/train.jsonl
+  n: 28
+  shuffle_before_subsample: true
+output:
+  runs_dir: runs

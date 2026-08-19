@@ -1,0 +1,3 @@
+model,strategy,n,n_pass,spec_adherence,n_adv,n_adv_pass,robustness,mean_violations_per_100_words,softened_modal_count,anchor_break_count,top_violations,n_judged,n_judge_pass,judge_pass_rate
+hf:/vol/runs/20260818-220624-N123-seed3407/adapter,zero_shot,10,2,0.2,0,0,,0.51,33,9,missing_operative_deadline:7; missing_scaffold:5; unearned_word:5,1,0,0.0
+hf:Qwen/Qwen3-4B-Instruct-2507,zero_shot,10,0,0.0,0,0,,0.87,3,11,unearned_word:18; missing_operative_deadline:6; fabricated_quote:5,1,0,0.0

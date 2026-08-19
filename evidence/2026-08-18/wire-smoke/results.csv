@@ -1,0 +1,2 @@
+model,strategy,n,n_pass,spec_adherence,n_adv,n_adv_pass,robustness,mean_violations_per_100_words,softened_modal_count,anchor_break_count,top_violations,n_judged,n_judge_pass,judge_pass_rate
+claude:claude-sonnet-5,zero_shot,1,0,0.0,0,0,,2.44,0,1,fabricated_quote:11; unearned_word:6; paraphrased_anchor:1,1,0,0.0

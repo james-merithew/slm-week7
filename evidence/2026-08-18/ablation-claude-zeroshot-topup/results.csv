@@ -1,0 +1,2 @@
+model,strategy,n,n_pass,spec_adherence,n_adv,n_adv_pass,robustness,mean_violations_per_100_words,softened_modal_count,anchor_break_count,top_violations,n_judged,n_judge_pass,judge_pass_rate
+claude:claude-opus-5,zero_shot,6,0,0.0,0,0,,0.57,5,8,unearned_word:25; paraphrased_anchor:5; missing_operative_deadline:3,2,1,0.5

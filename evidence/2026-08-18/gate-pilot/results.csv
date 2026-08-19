@@ -1,0 +1,4 @@
+model,strategy,n,n_pass,spec_adherence,n_adv,n_adv_pass,robustness,mean_violations_per_100_words,softened_modal_count,anchor_break_count,top_violations,n_judged,n_judge_pass,judge_pass_rate
+claude:claude-opus-5,few_shot,5,1,0.2,0,0,,0.26,4,3,fabricated_quote:6; paraphrased_anchor:2; missing_operative_deadline:1,4,2,0.5
+claude:claude-opus-5,structured_cot,5,0,0.0,0,0,,0.44,3,1,fabricated_quote:9; unearned_word:5; missing_scaffold:2,4,4,1.0
+claude:claude-opus-5,zero_shot,5,0,0.0,0,0,,0.51,1,5,unearned_word:9; fabricated_quote:5; paraphrased_anchor:3,4,3,0.75

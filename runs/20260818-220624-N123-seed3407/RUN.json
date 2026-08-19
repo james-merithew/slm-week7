@@ -1,0 +1,30 @@
+{
+  "harness_version": 2,
+  "trainer_path": "unsloth",
+  "config_hash": "a124483640abb676",
+  "dataset_path": "/vol/data/v3_train.jsonl",
+  "dataset_sha256": "f88c2aeb906db3c2",
+  "n_examples": 123,
+  "seed": 3407,
+  "model_id": "Qwen/Qwen3-4B-Instruct-2507",
+  "wall_time_seconds": 1143.8,
+  "finished_utc": "2026-08-18T22:25:50.524913+00:00",
+  "library_versions": {
+    "python": "3.12.10",
+    "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.36",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.5.0",
+    "peft": "0.20.0",
+    "trl": "0.24.0",
+    "bitsandbytes": "0.50.1",
+    "unsloth": "2026.8.18",
+    "datasets": "4.3.0",
+    "accelerate": "1.14.0",
+    "cuda_available": "True",
+    "gpu": "NVIDIA L4"
+  },
+  "argv": [
+    "/pkg/modal/_container_entrypoint.py"
+  ],
+  "final_loss": 0.9549773236115774
+}

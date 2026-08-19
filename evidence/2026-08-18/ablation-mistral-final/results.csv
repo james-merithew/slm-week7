@@ -1,0 +1,4 @@
+model,strategy,n,n_pass,spec_adherence,n_adv,n_adv_pass,robustness,mean_violations_per_100_words,softened_modal_count,anchor_break_count,top_violations,n_judged,n_judge_pass,judge_pass_rate
+mistral:mistral-large-latest,few_shot,32,2,0.0625,8,0,0.0,0.94,26,41,fabricated_quote:43; unearned_word:37; missing_operative_deadline:25,6,4,0.6666666666666666
+mistral:mistral-large-latest,structured_cot,32,2,0.0625,8,2,0.25,0.98,27,45,unearned_word:35; missing_operative_deadline:23; paraphrased_anchor:22,6,3,0.5
+mistral:mistral-large-latest,zero_shot,32,2,0.0625,8,1,0.125,1.19,30,69,paraphrased_anchor:44; unearned_word:40; fabricated_quote:25,6,3,0.5

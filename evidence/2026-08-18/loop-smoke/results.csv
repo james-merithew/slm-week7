@@ -1,0 +1,2 @@
+model,strategy,n,n_pass,spec_adherence,n_adv,n_adv_pass,robustness,mean_violations_per_100_words,softened_modal_count,anchor_break_count,top_violations,n_judged,n_judge_pass,judge_pass_rate
+hf:runs/20260818-200031-N28-seed3407/export/merged,zero_shot,2,0,0.0,0,0,,0.25,0,0,missing_scaffold:2; missing_banner:1,0,0,

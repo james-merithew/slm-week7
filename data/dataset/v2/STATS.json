@@ -1,0 +1,36 @@
+{
+  "planned_dialogs": 300,
+  "accepted_dialogs": 28,
+  "discarded_dialogs": 272,
+  "dialog_acceptance_rate": 0.0933,
+  "discard_reasons": {
+    "repair_failed": 1,
+    "error:BadRequestError": 271
+  },
+  "turns": {
+    "first_pass_checked": 85,
+    "first_pass_passed": 71,
+    "first_pass_acceptance_rate": 0.8353,
+    "repair_attempted": 14,
+    "repair_succeeded": 13,
+    "repair_success_rate": 0.9286
+  },
+  "first_pass_violation_histogram": {
+    "fabricated_quote": 8,
+    "unearned_word": 6,
+    "over_quoting": 2,
+    "advice_given": 2,
+    "paraphrased_anchor": 1
+  },
+  "contrast_groups": 26,
+  "bait_dialogs": 90,
+  "api_calls": 99,
+  "teacher_model": "claude-opus-5",
+  "seed": 42,
+  "checker_version": {
+    "spec": "Benefits Notices, Explained — checker spec v3",
+    "version_json_sha256": "d16638abe95ffb15ba4f7f5260a687c13ab263b77e669af4e682fc9668fe1e7f",
+    "allowed_forms_sha256": "e34630435df3563da65438959bfa9164e0831b6b7d13f3645aa1d37e514ab329"
+  },
+  "generated_at": "2026-08-18T19:28:56+00:00"
+}

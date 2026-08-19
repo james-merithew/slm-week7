@@ -1,0 +1,23 @@
+anthropic>=0.116.0
+openai>=1.60.0
+
+# --- src/checker (deterministic compliance checker, spec v3) ---
+# Pinned: checker results are bit-reproducible only for fixed versions
+# (see src/checker/RULES.md determinism statement).
+spacy==3.8.15
+lemminflect==0.2.3
+pytest==8.4.2
+# spaCy English model (pinned):
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+
+# --- src/train QLoRA harness (local Windows fallback path; see src/train/README.md) ---
+# No NVIDIA GPU on the dev box -> CPU torch wheel; on a CUDA box install the cu12x wheel instead.
+torch>=2.13                  # PyPI Windows wheel is CPU-only; fine for smoke tests
+transformers==4.57.6         # pinned 4.x: 5.x API churn not yet validated against this harness
+peft==0.17.1                 # LoRA adapters (fallback trainer + export merge)
+accelerate>=1.5              # transformers Trainer backend
+datasets>=3.2                # JSONL -> Dataset
+pyyaml>=6.0                  # config.yaml
+# bitsandbytes                # CUDA-only: install on GPU boxes for 4-bit NF4 (auto-detected)
+# unsloth==2026.8.18         # Modal/Linux path only (triton is Linux-first); pinned in src/train/modal_app.py
+# modal                      # for the A100 sweep runs: pip install modal && modal setup

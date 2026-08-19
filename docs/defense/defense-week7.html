@@ -1,0 +1,367 @@
+<title>Week 7 Defense — Earned Words</title>
+<style>
+  /* Week 6's layout system, re-skinned high-tech education: deep indigo
+     ground, luminous cyan signal (the "earned" moment), violet annotation.
+     Single-theme by design. */
+  :root, :root[data-theme="dark"], :root[data-theme="light"] {
+    --bg:#070C1A; --surface:#111A35; --ink:#FFFFFF; --muted:#A9B3D6;
+    --line:#303C66; --lime:#5FE4FF; --blue:#BCA8FF;
+  }
+  html, body { background: var(--bg); }
+  body { color: var(--ink); margin: 0; padding: 3.5rem 1.5rem 4rem;
+    font: 15px/1.55 -apple-system, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; }
+  .sheet { max-width: 780px; margin: 0 auto; }
+
+  .micro { font-family: Consolas, "Cascadia Code", monospace; font-size: .68rem;
+    text-transform: uppercase; letter-spacing: .18em; color: var(--muted); }
+  .micro b { color: var(--lime); font-weight: 400; }
+
+  .hero { padding-bottom: 2rem; }
+  h1 { margin: .9rem 0 .6rem; font-weight: 800; letter-spacing: -0.03em;
+    font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.02; text-wrap: balance;
+    animation: rise .6s ease-out both; }
+  h1 .arrow { color: var(--lime); font-weight: 800; display: inline-block;
+    animation: arrowIn .7s cubic-bezier(.2,.8,.2,1) .25s both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @keyframes arrowIn { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+  .thesis { color: var(--muted); max-width: 56ch; margin: 0 0 1.2rem;
+    animation: rise .6s ease-out .15s both; }
+  .thesis b { color: var(--ink); font-weight: 600; }
+
+  .pills { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.1rem 0 0; }
+  .pill { border: 1px solid var(--line); border-radius: 999px; padding: .32em .85em;
+    font-family: Consolas, monospace; font-size: .72rem; color: var(--muted);
+    letter-spacing: .04em; white-space: nowrap; animation: rise .5s ease-out both; }
+  .pill:nth-child(2) { animation-delay: .35s } .pill:nth-child(3) { animation-delay: .45s }
+  .pill:nth-child(4) { animation-delay: .55s } .pill:nth-child(5) { animation-delay: .65s }
+  .pill:nth-child(6) { animation-delay: .75s } .pill:nth-child(7) { animation-delay: .85s }
+  .pill b { color: var(--lime); font-weight: 400; }
+
+  section, footer { border-top: 1px solid var(--line); padding: 1.6rem 0; }
+  .reveal { animation: rise .65s ease-out both; }
+  section:nth-of-type(1) { animation-delay: .55s }
+  section:nth-of-type(2) { animation-delay: .75s }
+  section:nth-of-type(3) { animation-delay: .95s }
+  section:nth-of-type(4) { animation-delay: 1.15s }
+  section:nth-of-type(5) { animation-delay: 1.35s }
+  section:nth-of-type(6) { animation-delay: 1.55s }
+  footer.reveal { animation-delay: 1.7s; padding-bottom: 0; }
+
+  .sec-head { display: flex; align-items: baseline; gap: .9rem; margin-bottom: .45rem; }
+  .n { font-family: Consolas, monospace; font-size: .72rem; color: var(--lime); letter-spacing: .1em; }
+  h2 { font-size: 1.14rem; margin: 0; font-weight: 700; letter-spacing: -0.015em; }
+  p { margin: 0; }
+  .line { color: var(--muted); max-width: 62ch; }
+  .line b { color: var(--ink); font-weight: 600; }
+  code { font-family: Consolas, "Cascadia Code", monospace; font-size: .85em; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: .06em .35em; }
+  .sig { color: var(--lime); font-weight: 600; }
+
+  figure { margin: 1.15rem 0 0; }
+  svg { max-width: 100%; height: auto; display: block; color: var(--ink); }
+  figcaption { margin-top: .5rem; font-family: Consolas, monospace; font-size: .7rem;
+    color: var(--muted); letter-spacing: .03em; }
+  figcaption .sig { color: var(--lime); }
+  .d-label { font: 11px Consolas, monospace; fill: var(--ink); }
+  .d-tiny  { font: 9px Consolas, monospace; fill: var(--muted); }
+  .d-mut   { font: 10px Consolas, monospace; fill: var(--muted); }
+  .d-blue  { font: 10px Consolas, monospace; fill: var(--blue); }
+  .d-box   { fill: var(--surface); stroke: var(--line); stroke-width: 1; }
+  .d-edge  { stroke: #5A69A0; stroke-width: 1; fill: none; }
+  .d-dash  { stroke: #5A69A0; stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
+  .d-lime-box  { fill: rgba(95,228,255,.12); stroke: var(--lime); stroke-width: 1; }
+  .d-lime-text { font: 11px Consolas, monospace; fill: var(--lime); }
+  .glow { fill: #5FE4FF; pointer-events: none; }
+
+  table { border-collapse: collapse; width: 100%; margin-top: 1.05rem;
+    font-family: Consolas, "Cascadia Code", monospace; font-size: .78rem;
+    font-variant-numeric: tabular-nums; }
+  th { text-align: left; color: var(--muted); font-weight: 400; text-transform: uppercase;
+    letter-spacing: .1em; font-size: .64rem; padding: .45em .7em; border-bottom: 1px solid var(--line); }
+  td { padding: .42em .7em; border-bottom: 1px solid var(--line); color: var(--ink); }
+  td.slot { color: var(--lime); text-align: center; }
+  td.mut { color: var(--muted); }
+
+  .specbox { margin-top: 1.05rem; border: 1px solid var(--lime); background: rgba(95,228,255,.08);
+    padding: .95rem 1.1rem; }
+  .specbox p { color: var(--ink); font-size: .95rem; max-width: none; }
+  .specbox .micro { margin-bottom: .4rem; display: block; }
+
+  .ex { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: 1.05rem; }
+  .ex .card { border: 1px solid var(--line); background: var(--surface); padding: .75rem .9rem;
+    font-size: .85rem; color: var(--muted); line-height: 1.5; }
+  .ex .card.win { border-color: var(--lime); color: var(--ink); }
+  .ex .micro { display: block; margin-bottom: .45rem; }
+  .ex .card.win .micro { color: var(--lime); }
+  @media (max-width: 560px) { .ex { grid-template-columns: 1fr; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    h1, h1 .arrow, .thesis, .pill, .reveal { animation: none; }
+    .anim { display: none; }
+  }
+
+  footer { color: var(--muted); font-size: .82rem; border-bottom: none; }
+  footer code { font-size: .78rem; }
+</style>
+
+<div class="sheet">
+  <header class="hero">
+    <div class="micro">Architecture defense · Week 7 · benefits notices, explained · <b>James Merithew</b></div>
+    <h1>UNREAD <span class="arrow">→</span> UNDERSTOOD</h1>
+    <p class="thesis">A letter that decides your <b>food, health care, or rent</b> — quoted
+      exactly, then explained in the words you already have. Dates and deadlines
+      <b>verbatim</b>; "must" stays "must". <b>A published checker proves it.</b></p>
+    <figure>
+      <svg viewBox="0 0 660 60" role="img" aria-label="A scary letter is quoted exactly, explained in earned words, and its meaning becomes the reader's — logged in the ledger">
+        <defs>
+          <marker id="a" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0 L8 4 L0 8 z" fill="#5A69A0"/></marker>
+          <marker id="al" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0 0 L8 4 L0 8 z" fill="#5FE4FF"/></marker>
+        </defs>
+        <rect class="d-box" x="2"   y="14" width="110" height="30"/>
+        <rect class="d-box" x="152" y="14" width="128" height="30"/>
+        <rect class="d-box" x="320" y="14" width="196" height="30"/>
+        <rect class="d-lime-box" x="560" y="14" width="98" height="30"/>
+        <rect class="glow anim" x="2" y="14" width="110" height="30" opacity="0">
+          <animate attributeName="opacity" values="0.16;0.16;0;0;0" keyTimes="0;0.08;0.16;0.5;1" dur="7s" repeatCount="indefinite"/></rect>
+        <rect class="glow anim" x="152" y="14" width="128" height="30" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.16;0;0" keyTimes="0;0.27;0.36;0.45;1" dur="7s" repeatCount="indefinite"/></rect>
+        <rect class="glow anim" x="320" y="14" width="196" height="30" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.16;0;0" keyTimes="0;0.55;0.63;0.71;1" dur="7s" repeatCount="indefinite"/></rect>
+        <rect class="glow anim" x="560" y="14" width="98" height="30" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.28;0;0" keyTimes="0;0.88;0.94;0.999;1" dur="7s" repeatCount="indefinite"/></rect>
+        <text class="d-label" x="57"  y="33" text-anchor="middle">scary letter</text>
+        <text class="d-label" x="216" y="33" text-anchor="middle">quoted exactly</text>
+        <text class="d-label" x="418" y="33" text-anchor="middle">explained in earned words</text>
+        <text class="d-lime-text" x="609" y="33" text-anchor="middle">theirs now</text>
+        <text class="d-tiny" x="609" y="56" text-anchor="middle">the ledger</text>
+        <line class="d-edge" x1="112" y1="29" x2="146" y2="29" marker-end="url(#a)"/>
+        <line class="d-edge" x1="280" y1="29" x2="314" y2="29" marker-end="url(#a)"/>
+        <line class="d-edge" x1="516" y1="29" x2="554" y2="29" marker-end="url(#al)"/>
+        <text class="d-blue" x="132" y="24" text-anchor="middle">verbatim anchors</text>
+        <text class="d-blue" x="535" y="24" text-anchor="middle">checker verifies</text>
+        <circle class="anim" r="3.2" fill="#5FE4FF">
+          <animateMotion dur="7s" repeatCount="indefinite" path="M 20 29 H 609"/>
+          <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.96;1" dur="7s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </figure>
+    <div class="pills">
+      <span class="micro" style="align-self:center">TARGETS</span>
+      <span class="pill">ABLATION <b>2×3×30</b></span>
+      <span class="pill">CHECKER FP <b>&lt;5%</b></span>
+      <span class="pill">NEW WORDS <b>≤2/turn</b></span>
+      <span class="pill">ANCHORS <b>verbatim</b></span>
+      <span class="pill">JUDGE <b>audit-only</b></span>
+      <span class="pill">PIVOT <b>@≥85%</b></span>
+    </div>
+  </header>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="n">01</span><h2>The letters are unreadable — and models soften them</h2></div>
+    <p class="line"><b>~88% of benefits notices</b> are written above their readers' level; in an
+      RCT, simplified mailings <b>roughly doubled enrollment</b>. Frontier models asked to explain
+      a notice normalize dates, paraphrase form names — and soften the modals:
+      <i>"you must"</i> becomes <i>"you'll want to"</i>. <b>RLHF politeness, working against the
+      reader.</b></p>
+    <table aria-label="Prompt-ceiling ablation results, filled from the live run">
+      <tr><th>model</th><th>strategy</th><th>strict pass (1st)</th><th>anchor breaks</th><th>"must" softened</th></tr>
+      <tr><td>claude (opus-tier)</td><td class="mut">zero-shot</td><td class="slot">—</td><td class="slot">—</td><td class="slot">—</td></tr>
+      <tr><td>claude (opus-tier)</td><td class="mut">few-shot</td><td class="slot">—</td><td class="slot">—</td><td class="slot">—</td></tr>
+      <tr><td>claude (opus-tier)</td><td class="mut">structured / CoT</td><td class="slot">—</td><td class="slot">—</td><td class="slot">—</td></tr>
+      <tr><td>mistral-large</td><td class="mut">zero-shot</td><td class="slot">—</td><td class="slot">—</td><td class="slot">—</td></tr>
+      <tr><td>mistral-large</td><td class="mut">few-shot</td><td class="slot">—</td><td class="slot">—</td><td class="slot">—</td></tr>
+      <tr><td>mistral-large</td><td class="mut">structured / CoT</td><td class="slot">—</td><td class="slot">—</td><td class="slot">—</td></tr>
+    </table>
+    <figcaption>first-pass metric — full spec in-prompt, no regeneration credit · re-runnable by anyone · <code>run_ablation</code></figcaption>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="n">02</span><h2>How we chose it — twice</h2></div>
+    <p class="line"><b>11 behaviors, 9 adversarial reviews, 3 rounds</b> picked the rule —
+      then <b>16 deployment contexts</b> went through the same gauntlet.
+      <span class="sig">My own favorite lost under my own criteria.</span></p>
+    <figure>
+      <svg viewBox="0 0 660 240" role="img" aria-label="Selection funnel: eleven behaviors narrowed through nine reviews to earned words; then a context round narrowed sixteen deployment contexts to benefits notices, with dev-docs and government mail sent to the roadmap and fitness, banking, and patient health killed">
+        <rect class="d-box" x="2" y="70" width="104" height="30"/>
+        <text class="d-label" x="54" y="89" text-anchor="middle">11 behaviors</text>
+        <rect class="d-box" x="150" y="22"  width="118" height="24"/>
+        <rect class="d-box" x="150" y="73"  width="118" height="24"/>
+        <rect class="d-box" x="150" y="124" width="118" height="24"/>
+        <text class="d-label" x="209" y="38"  text-anchor="middle">earned words</text>
+        <text class="d-label" x="209" y="89"  text-anchor="middle">no praise</text>
+        <text class="d-label" x="209" y="140" text-anchor="middle">explain first</text>
+        <line class="d-edge" x1="106" y1="78" x2="144" y2="38"  marker-end="url(#a)"/>
+        <line class="d-edge" x1="106" y1="85" x2="144" y2="85"  marker-end="url(#a)"/>
+        <line class="d-edge" x1="106" y1="92" x2="144" y2="132" marker-end="url(#a)"/>
+        <rect class="d-box" x="312" y="12" width="118" height="146"/>
+        <text class="d-blue" x="371" y="8" text-anchor="middle">3 rounds · argue → adjudicate</text>
+        <text class="d-tiny" x="371" y="30"  text-anchor="middle">economics</text>
+        <text class="d-tiny" x="371" y="44"  text-anchor="middle">psychology</text>
+        <text class="d-tiny" x="371" y="58"  text-anchor="middle">technology</text>
+        <text class="d-tiny" x="371" y="72"  text-anchor="middle">game theory</text>
+        <text class="d-tiny" x="371" y="86"  text-anchor="middle">behavioral econ</text>
+        <text class="d-tiny" x="371" y="100" text-anchor="middle">red team</text>
+        <text class="d-tiny" x="371" y="114" text-anchor="middle">learning science</text>
+        <text class="d-tiny" x="371" y="128" text-anchor="middle">LLM training</text>
+        <text class="d-tiny" x="371" y="142" text-anchor="middle">product</text>
+        <line class="d-edge" x1="268" y1="34"  x2="306" y2="34"  marker-end="url(#a)"/>
+        <line class="d-edge" x1="268" y1="85"  x2="306" y2="85"  marker-end="url(#a)"/>
+        <line class="d-edge" x1="268" y1="136" x2="306" y2="136" marker-end="url(#a)"/>
+        <rect class="d-lime-box" x="488" y="22" width="170" height="30"/>
+        <text class="d-lime-text" x="573" y="41" text-anchor="middle">EARNED WORDS v2.2</text>
+        <text class="d-blue" x="573" y="16" text-anchor="middle">rebuilt 3× under attack</text>
+        <line class="d-edge" x1="430" y1="37" x2="482" y2="37" marker-end="url(#al)"/>
+        <g opacity=".45">
+          <rect class="d-box" x="488" y="73" width="170" height="24"/>
+          <text class="d-mut" x="573" y="89" text-anchor="middle">✗ prompting already works</text>
+          <path class="d-dash" d="M 430 85 L 482 85"/>
+        </g>
+        <rect class="d-box" x="488" y="124" width="170" height="24"/>
+        <text class="d-mut" x="573" y="140" text-anchor="middle">banked as fallback</text>
+        <path class="d-dash" d="M 430 136 L 482 136" marker-end="url(#a)"/>
+        <rect class="glow anim" x="488" y="22" width="170" height="30" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.26;0;0" keyTimes="0;0.86;0.93;0.999;1" dur="8s" repeatCount="indefinite"/></rect>
+        <circle class="anim" r="3" fill="#5FE4FF">
+          <animateMotion dur="8s" repeatCount="indefinite" path="M 12 85 L 110 85 L 150 34 L 300 34 L 355 37 L 640 37"/>
+          <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.96;1" dur="8s" repeatCount="indefinite"/>
+        </circle>
+        <text class="d-blue" x="2" y="188">context round · 2 scouts → 2 SMEs → red team → 3-lens ruling</text>
+        <rect class="d-box" x="2" y="200" width="110" height="30"/>
+        <text class="d-label" x="57" y="219" text-anchor="middle">16 contexts</text>
+        <line class="d-edge" x1="112" y1="215" x2="146" y2="215" marker-end="url(#al)"/>
+        <rect class="d-lime-box" x="152" y="200" width="176" height="30"/>
+        <text class="d-lime-text" x="240" y="219" text-anchor="middle">BENEFITS NOTICES</text>
+        <rect class="glow anim" x="152" y="200" width="176" height="30" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.26;0;0" keyTimes="0;0.86;0.93;0.999;1" dur="8s" repeatCount="indefinite"/></rect>
+        <text class="d-mut" x="344" y="212">→ roadmap: dev-docs · government mail</text>
+        <text class="d-mut" x="344" y="228">✗ killed: fitness · banking · patient health</text>
+        <circle class="anim" r="3" fill="#5FE4FF">
+          <animateMotion dur="8s" repeatCount="indefinite" path="M 12 215 H 240"/>
+          <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.96;1" dur="8s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <figcaption>the losing argument is on file too — every review, rebuttal, and ruling: <span class="sig">docs/research/</span> · context round: <span class="sig">context-*.md</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="n">03</span><h2>Quote it exactly, explain it plainly — made checkable</h2></div>
+    <div class="specbox">
+      <span class="micro">BEHAVIOR SPEC v3 — VERBATIM</span>
+      <p>A benefits-notice reading companion for adult English readers. Given typed notice
+        text, it quotes the operative passage exactly, then explains it within the earned-words
+        vocabulary — the published learner list (~2,800 word families) plus words the reader
+        has used or been taught, a plain definition in one of four published forms, at most two
+        new words per turn. Every date, amount, and contact is an exact substring of the letter;
+        modals are preserved — "must" stays "must"; no advice, ever — a fixed legal-aid
+        deflection instead; a fixed aid-paid-pending banner; honest when the letter is missing
+        required elements. A published deterministic checker scores any transcript.</p>
+    </div>
+    <div class="ex">
+      <div class="card">
+        <span class="micro">THE NOTICE</span>
+        "NOTICE OF ADVERSE ACTION — Your benefits will be reduced pursuant to 7 CFR § 273.12.
+        You must submit Form IV-2 by 09/01/2026. You may request a fair hearing within 90 days
+        of the date of this notice."
+      </div>
+      <div class="card win">
+        <span class="micro">TUNED — QUOTE, THEN EXPLAIN</span>
+        The letter says: "You must submit Form IV-2 by 09/01/2026." This letter is an
+        <span class="sig">adverse action</span> — the office plans to cut your help. What it
+        asks: send Form IV-2. By when: 09/01/2026. "Must" means there is no choice.
+      </div>
+    </div>
+    <figcaption>illustrative pair — every date an exact substring of the letter, every "must" intact</figcaption>
+    <p class="line" style="margin-top:1.05rem">Built for <b>adult English readers and
+      intermediate ESL</b> — and the navigators and family helpers beside them. Answers land in
+      three parts: <b>what it says / what it asks / by when</b>, with a form-field walkthrough
+      mode. Every taught term goes in an <span class="sig">earned-vocabulary ledger</span> —
+      benefits vocabulary recurs, letter after letter. We claim the behavior, never the outcome:
+      <b>harm-bounded by design</b>. The model is the demo; <b>the checker is the product</b>.</p>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="n">04</span><h2>The dataset is the curriculum</h2></div>
+    <p class="line">Every training conversation is a <b>model lesson</b> — a synthetic notice,
+      explained on-spec — and one ~200-line checker filters the lessons, grades the models, and
+      builds the preference pairs. <span class="sig">Published before staff write the held-out
+      set.</span></p>
+    <figure>
+      <svg viewBox="0 0 660 118" role="img" aria-label="Pipeline: teacher lessons pass the checker gate into QLoRA training and evaluation">
+        <rect class="d-box" x="2"   y="14" width="88" height="30"/>
+        <rect class="d-box" x="130" y="14" width="120" height="30"/>
+        <rect class="d-lime-box" x="290" y="14" width="130" height="30"/>
+        <rect class="d-box" x="460" y="14" width="90" height="30"/>
+        <rect class="d-box" x="570" y="14" width="88" height="30"/>
+        <rect class="glow anim" x="2" y="14" width="88" height="30" opacity="0">
+          <animate attributeName="opacity" values="0.14;0.14;0;0;0" keyTimes="0;0.06;0.13;0.5;1" dur="8s" repeatCount="indefinite"/></rect>
+        <rect class="glow anim" x="130" y="14" width="120" height="30" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.14;0;0" keyTimes="0;0.2;0.27;0.34;1" dur="8s" repeatCount="indefinite"/></rect>
+        <rect class="glow anim" x="290" y="14" width="130" height="30" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.24;0;0" keyTimes="0;0.42;0.5;0.58;1" dur="8s" repeatCount="indefinite"/></rect>
+        <rect class="glow anim" x="460" y="14" width="90" height="30" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.14;0;0" keyTimes="0;0.65;0.72;0.79;1" dur="8s" repeatCount="indefinite"/></rect>
+        <rect class="glow anim" x="570" y="14" width="88" height="30" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.24;0;0" keyTimes="0;0.88;0.94;0.999;1" dur="8s" repeatCount="indefinite"/></rect>
+        <text class="d-label" x="46"  y="33" text-anchor="middle">teacher</text>
+        <text class="d-label" x="190" y="33" text-anchor="middle">model lessons</text>
+        <text class="d-lime-text" x="355" y="33" text-anchor="middle">checker gate</text>
+        <text class="d-label" x="505" y="33" text-anchor="middle">QLoRA 4B</text>
+        <text class="d-label" x="614" y="33" text-anchor="middle">eval</text>
+        <line class="d-edge" x1="90"  y1="29" x2="124" y2="29" marker-end="url(#a)"/>
+        <line class="d-edge" x1="250" y1="29" x2="284" y2="29" marker-end="url(#a)"/>
+        <line class="d-edge" x1="420" y1="29" x2="454" y2="29" marker-end="url(#al)"/>
+        <line class="d-edge" x1="550" y1="29" x2="564" y2="29" marker-end="url(#a)"/>
+        <path class="d-dash" d="M 355 44 L 355 70 L 190 70 L 190 46" marker-end="url(#a)"/>
+        <text class="d-blue" x="272" y="64" text-anchor="middle">off-spec → rewrite</text>
+        <path class="d-dash" d="M 614 44 L 614 92 L 355 92 L 355 72" marker-end="url(#a)"/>
+        <text class="d-blue" x="490" y="88" text-anchor="middle">same checker: base · tuned · staff held-out</text>
+        <text class="d-mut" x="2" y="112">dataset sizes 1200 · 600 · 300 · 150 · 75 → how little teaching data is enough?</text>
+        <circle class="anim" r="3" fill="#5FE4FF">
+          <animateMotion dur="8s" repeatCount="indefinite" path="M 12 29 H 614"/>
+          <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.96;1" dur="8s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <figcaption>model lessons = notice explanations, <span class="sig">checker-filtered</span> · synthetic notices, no PII · staff held-out seeded from real redacted letters</figcaption>
+    </figure>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="n">05</span><h2>Said before asked</h2></div>
+    <p class="line">We name <b>misbinding</b> first — right date, wrong obligation. The checker
+      can't see it, so it's <span class="sig">judge-audited on a sample</span>, with
+      operative-deadline metadata per scenario. The modal check is <b>crude and deterministic</b> —
+      stated, not hidden. <b>English-first, typed-text v1</b> — scoped upfront. Drift over long
+      exchanges is <b>charted per turn</b>. And the pivot is still <b>pre-registered</b>.</p>
+    <figure>
+      <svg viewBox="0 0 660 66" role="img" aria-label="Pre-registered pivot: the day-one pilot either locks the target or triggers the fallback">
+        <rect class="d-box" x="2" y="18" width="150" height="30"/>
+        <rect class="d-lime-box" x="360" y="2"  width="298" height="26"/>
+        <rect class="d-box" x="360" y="38" width="298" height="26"/>
+        <text class="d-label" x="77" y="37" text-anchor="middle">day-1 pilot</text>
+        <text class="d-lime-text" x="509" y="19" text-anchor="middle">frontier &lt;85% ∧ checker &lt;5% FP → lock</text>
+        <text class="d-label" x="509" y="55" text-anchor="middle">else → fallback: self-explanation gate</text>
+        <line class="d-edge" x1="152" y1="28" x2="354" y2="15" marker-end="url(#al)"/>
+        <line class="d-edge" x1="152" y1="40" x2="354" y2="51" marker-end="url(#a)"/>
+      </svg>
+    </figure>
+  </section>
+
+  <section class="reveal">
+    <div class="sec-head"><span class="n">06</span><h2>Deliberately not built</h2></div>
+    <p class="line"><b>No advice, ever</b> — a canned legal-aid referral instead. No photo OCR
+      in v1 — a corrupted date is a corrupted deadline. No IRS or government-mail expansion —
+      <b>roadmap, not scope</b>. No dev-docs — <b>my favorite lost under my own criteria</b>.</p>
+  </section>
+
+  <footer class="reveal">
+    <span class="micro">RECEIPTS</span> — requirements: <code>docs/requirements.md</code> ·
+    decisions: <code>docs/DECISIONS.md</code> ·
+    panel record: <code>docs/research/</code> ·
+    context round: <code>docs/research/context-*.md</code> ·
+    Q&amp;A brief: <code>docs/defense/qa-brief.md</code>
+  </footer>
+</div>

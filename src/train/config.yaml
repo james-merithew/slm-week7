@@ -1,0 +1,73 @@
+# =============================================================================
+# ONE FROZEN HARNESS — single source of truth for every training hyperparameter.
+# Do not fork this file per-experiment; override N / seed via CLI flags that are
+# recorded in RUN.json. Any other change = a new harness version (bump below).
+#
+# QWEN3 THINKING MODE IS OFF END-TO-END:
+#   * <think>...</think> blocks are stripped from all dataset messages at load
+#     time (src/train/data.py).
+#   * enable_thinking=False is passed to every tokenizer.apply_chat_template
+#     call (training, masking verification, and inference). For the -2507
+#     Instruct checkpoints the template has no thinking branch at all; the
+#     kwarg is harmlessly ignored there, and it disables thinking on hybrid
+#     Qwen3 checkpoints (e.g. the 0.6B smoke model).
+# =============================================================================
+
+harness_version: 2         # v2: max_seq_len 2048 -> 4096. Measured on dataset v3:
+                           # the behavior-spec system prompt alone is ~2100 tokens, so at
+                           # 2048 ALL 123 dialogs had zero trainable tokens (verified with
+                           # --verify-masking 2026-08-18). 4096 covers the observed ~3.7k
+                           # p99 dialog length.
+
+model:
+  # Qwen3-4B-Instruct-2507 is the non-thinking instruct release (preferred:
+  # no hybrid-thinking template branch to police).
+  id: Qwen/Qwen3-4B-Instruct-2507
+  # Fallback if Qwen3 is unavailable / gated problems on the runner:
+  fallback_id: meta-llama/Llama-3.2-3B-Instruct
+  max_seq_len: 4096        # v2: was 2048, which truncated every dialog to zero trainable tokens (see harness_version note)
+  load_in_4bit: true       # QLoRA: NF4 base weights (ignored automatically on CPU smoke runs)
+
+lora:
+  # r=16 / alpha=32 (alpha = 2r) is the standard 3-7B SFT sweet spot: enough
+  # capacity for style+format adaptation on 75-1200 examples without the
+  # overfitting risk of r=64 at tiny N.
+  r: 16
+  alpha: 32
+  dropout: 0.05            # small regularizer; matters at N=75/150. (Unsloth is fastest at 0.0 but 0.05 is the safer default for tiny N.)
+  # All attention + MLP projections — QLoRA paper found targeting all linear
+  # layers matters more than rank.
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+train:
+  seed: 3407               # also the subsampling seed; 3407 is the Unsloth-docs convention
+  # Effective batch 32 = 4 x 8: 3-7B SFT literature default is a LARGER
+  # effective batch (16-64) with a LOWER LR than full fine-tuning; 32 keeps
+  # gradient noise low enough that lr 2e-4 LoRA is stable.
+  per_device_batch_size: 4
+  grad_accum_steps: 8
+  # 2e-4 is the canonical LoRA SFT LR for 3-7B models (QLoRA paper / Unsloth
+  # defaults use 1e-4..2e-4; full-FT would be ~1e-5-2e-5). Cosine decay to 0.
+  learning_rate: 2.0e-4
+  lr_scheduler: cosine
+  warmup_ratio: 0.03       # ~3% warmup: standard for short SFT runs; avoids the step-0 LR spike destabilizing LoRA init
+  epochs: 3                # 2-3 epochs is the small-N SFT default; 3 chosen because N<=1200 (more passes over less data), early rows of the loss CSV tell us if 2 was enough
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  optim: adamw_8bit        # paged 8-bit Adam on GPU (QLoRA default); auto-downgraded to adamw_torch on CPU
+  logging_steps: 1         # every optimizer step -> loss_log.csv (cheap, and we want dense curves for the data-efficiency sweep)
+  save_strategy: "no"      # only the final adapter is kept (runs are cheap to redo; sweep disk hygiene)
+  packing: false           # no sequence packing: masking correctness is easier to audit unpacked, and N is tiny anyway
+  max_steps: -1            # -1 = derive from epochs; smoke config overrides this
+
+data:
+  path: data/dataset/v3/train.jsonl  # 123 checker-filtered dialogs (Sonnet 5 teacher, seed 42)
+  # n: how many conversations to train on, subsampled DETERMINISTICALLY:
+  # rows are shuffled by RNG(seed) over the full file, then the first n taken,
+  # so N=75 is a strict subset of N=150 ⊂ 300 ⊂ 600 ⊂ 1200 for a given seed.
+  # null = use all rows. Sweep values: [75, 150, 300, 600, 1200]
+  n: null
+  shuffle_before_subsample: true
+
+output:
+  runs_dir: runs           # runs/<UTC timestamp>-N<size>-seed<seed>/
